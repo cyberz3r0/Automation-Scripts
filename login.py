@@ -9,7 +9,8 @@ def timesheet():
     from notifypy import Notify
     import platform
     import os
-
+    import pytz
+    
     def show_notification(message):
         notification = Notify()
         notification.title = "ClockIN/OUT"
@@ -21,8 +22,8 @@ def timesheet():
             
         notification.send()
 
-
-    date_time = datetime.now()
+    PST = pytz.timezone("America/Los_Angeles")
+    date_time = datetime.now(PST)
     log_datetime = date_time.strftime("%m%d%Y-%H%M-%S")
     current_time = date_time.strftime("%H%M")
 
