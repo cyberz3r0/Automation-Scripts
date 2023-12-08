@@ -26,7 +26,6 @@ def discord():
         if first_check == second_check:
             element.clear()
             check()
-        show_notification("Success")
         
     def login(element):
         if element.is_displayed():
@@ -83,11 +82,14 @@ def discord():
             msg = "Lunch"
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
             check()
-            
+            show_notification("Success")
+            driver.quit()
         elif int(current_time) == 16:
             msg = "Back"
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
             check()
+            show_notification("Success")
+            driver.quit()
         else:
             msg = "Goodnight ninjas! If I helped you today, please leave some feedback for me! Feedback is anonymous and helps us as TAs improve your experiences in Coding Dojo. https://form.typeform.com/to/rX5h1pbL#ta_name=Samuel%20Reid"
         # ==============================================================================================================
@@ -97,9 +99,11 @@ def discord():
             driver.find_element(By.XPATH, '//li[@data-dnd-name= "ta-availability"]').click()
             check()
             driver.quit()
+            
     except Exception as error_code:
         show_notification("Failed")
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'discord-{log_datetime}.txt')
+        driver.save_screenshot(f'logs/screenshots/discord-{log_datetime}.png')
         with open(log_directory, 'w') as file:
                 file.write(str(error_code))
         driver.quit()

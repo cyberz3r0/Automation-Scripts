@@ -10,7 +10,7 @@ def timesheet():
     import platform
     import os
     import pytz
-    
+
     def show_notification(message):
         notification = Notify()
         notification.title = "ClockIN/OUT"
@@ -31,6 +31,7 @@ def timesheet():
         op = webdriver.ChromeOptions()
         op.add_argument('headless')
         op.add_argument('--log-level=3')
+        op.add_argument('window-size=1920,1080')
         op.add_experimental_option('excludeSwitches', ['enable-logging'])
         driver = webdriver.Chrome(options=op)
         driver.get('https://hcm92.careered.com/psc/HRPRD/EMPLOYEE/HRMS/c/NUI_FRAMEWORK.PT_LANDINGPAGE.GBL?')
@@ -61,9 +62,10 @@ def timesheet():
             driver.quit()
     except Exception as error_code:
         show_notification("Failed")
+        driver.save_screenshot(f'logs/screenshots/timesheet-{log_datetime}.png')
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'timesheet-{log_datetime}.txt')
         with open(log_directory, 'w') as file:
-                file.write(str(error_code))
+            file.write(str(error_code))
         driver.quit()
 
 
