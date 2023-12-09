@@ -6,21 +6,8 @@ def timesheet():
     from selenium.webdriver.support.ui import Select
     from decouple import config
     from datetime import datetime
-    from notifypy import Notify
-    import platform
-    import os
     import pytz
-
-    def show_notification(message):
-        notification = Notify()
-        notification.title = "ClockIN/OUT"
-        notification.message = message
-        if platform.system() == "Windows":
-            notification.audio = os.path.join(os.path.dirname(__file__), 'assets', 'Windows_Foreground.wav')
-        elif platform.system() == "Darwin":
-            notification.audio = os.path.join(os.path.dirname(__file__), 'assets', 'burn_complete.wav')
-            
-        notification.send()
+    from helper import show_notification
 
     PST = pytz.timezone("America/Los_Angeles")
     date_time = datetime.now(PST)
@@ -50,7 +37,7 @@ def timesheet():
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("1")
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
-            show_notification("Success")
+            show_notification("TimeSheet","Success")
             driver.quit()
         else:
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("2") # change to 1 for login
@@ -58,10 +45,10 @@ def timesheet():
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'CE_DERIVED_ETEO_YES')))
             driver.find_element(By.ID, 'CE_DERIVED_ETEO_YES').click()
             WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'ps-dropdown')))
-            show_notification("Success")
+            show_notification("TimeSheet","Success")
             driver.quit()
     except Exception as error_code:
-        show_notification("Failed")
+        show_notification("TimeSheet","Failed")
         driver.save_screenshot(f'logs/screenshots/timesheet-{log_datetime}.png')
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'timesheet-{log_datetime}.txt')
         with open(log_directory, 'w') as file:

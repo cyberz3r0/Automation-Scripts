@@ -48,10 +48,13 @@ schedule.every().friday.at("19:59", "America/Los_Angeles").do(discord)
 schedule.every().saturday.at("20:00", "America/Los_Angeles").do(timesheet)
 schedule.every().saturday.at("19:59", "America/Los_Angeles").do(discord)
 
+
 jobs = schedule.get_jobs()
 new_jobs=(str(jobs)).split("),")
 for job in new_jobs:
     print(job)
+from helper import show_notification
+show_notification("Task","Started")
 while True:
     schedule.run_pending()
     sleep(1)
