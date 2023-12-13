@@ -37,8 +37,8 @@ def check(driver, msg):
         
 def login(driver, element):
     if element.is_displayed():
-        driver.find_element(By.XPATH, '//input[@aria-label = "Email or Phone Number"]').send_keys(config('tauser'))
-        driver.find_element(By.XPATH, '//input[@name="password"]').send_keys(config('discordpw'))
+        driver.find_element(By.XPATH, '//input[@aria-label = "Email or Phone Number"]').send_keys(config('discord_user'))
+        driver.find_element(By.XPATH, '//input[@name="password"]').send_keys(config('discord_pw'))
         driver.find_element(By.XPATH, '//button[@type="submit"]').click()
     else:
         driver.get('https://discord.com/login')
