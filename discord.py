@@ -7,7 +7,8 @@ def discord():
     from datetime import datetime
     import pytz
     from helper import check, login, show_notification
-
+    from time import sleep
+    
     PST = pytz.timezone("America/Los_Angeles")
     date_time = datetime.now(PST)
     log_datetime = date_time.strftime("%m%d%Y-%H%M-%S")
@@ -18,6 +19,7 @@ def discord():
         op.add_argument('--log-level=3')
         op.add_experimental_option('excludeSwitches', ['enable-logging'])
         driver = webdriver.Chrome(options=op)
+        driver.maximize_window()
         driver.get('https://discord.com/login')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@aria-label = "Email or Phone Number"]')))
         present_element=driver.find_element(By.XPATH, '//input[@aria-label = "Email or Phone Number"]')
@@ -38,12 +40,14 @@ def discord():
         elif int(current_time) == 15:
             msg = "Lunch"
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
+            sleep(1)
             check(driver, msg)
             show_notification("Discord","Success")
             driver.quit()
         elif int(current_time) == 16:
             msg = "Back"
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
+            sleep(1)
             check(driver, msg)
             show_notification("Discord","Success")
             driver.quit()
