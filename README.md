@@ -1,6 +1,6 @@
-# ClockIn/Out
+# Automation Scripts
 
-This is an automation script to perform several task. Punch In and Out for my timesheet (including lunch) as well as post in Discord my status. 
+This is an automation script to perform several tasks. Punch In and Out for my timesheet (including lunch) as well as post in Discord my status. 
 
 
 
