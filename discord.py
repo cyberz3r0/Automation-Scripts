@@ -24,6 +24,7 @@ def discord():
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//input[@aria-label = "Email or Phone Number"]')))
         present_element=driver.find_element(By.XPATH, '//input[@aria-label = "Email or Phone Number"]')
         login(driver, present_element)
+        driver.implicitly_wait(5)
         WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//div[@data-dnd-name ="Coding Dojo"]')))
         driver.find_element(By.XPATH, '//div[@data-dnd-name ="Coding Dojo"]').click()
         if int(current_time) <= 14:

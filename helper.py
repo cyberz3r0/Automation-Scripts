@@ -30,7 +30,7 @@ def check(driver, msg):
     first_check = len(driver.find_elements(By.XPATH, '//span[text()="dojo_Samuel_Reid"]')) #If this Line goes above the previous line first_check says 0 
     element.send_keys(Keys.ENTER)
     second_check = len(driver.find_elements(By.XPATH, '//span[text()="dojo_Samuel_Reid"]'))
-    sleep(2)
+    driver.implicitly_wait(2)
     if first_check == second_check:
         element.clear()
         check()
