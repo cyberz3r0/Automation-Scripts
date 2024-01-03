@@ -48,6 +48,7 @@ def timesheet():
             show_notification("TimeSheet","Success")
             driver.quit()
     except Exception as error_code:
+        import os
         show_notification("TimeSheet","Failed")
         driver.save_screenshot(f'logs/screenshots/timesheet-{log_datetime}.png')
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'timesheet-{log_datetime}.txt')
