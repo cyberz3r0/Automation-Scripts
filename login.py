@@ -35,12 +35,14 @@ def timesheet():
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, 'ps-dropdown')))
         if int(current_time) <= 1100 or int(current_time) == 1600:
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("1")
+            WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             show_notification("TimeSheet","Success")
             driver.quit()
         else:
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("2") # change to 1 for login
+            WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'CE_DERIVED_ETEO_YES')))
             driver.find_element(By.ID, 'CE_DERIVED_ETEO_YES').click()
