@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from decouple import config
 from time import sleep
 
-def show_notification(title = "Task", message = None, date):
+def show_notification(title = "Task", message = None, date = None):
     from notifypy import Notify
     import platform
     import os
@@ -49,13 +49,13 @@ def send_email(task, status, date):
     import smtplib
     from email.mime.multipart import MIMEMultipart
     from email.mime.text import MIMEText
-    from decouple import config
+    
     message = MIMEMultipart()
-    message["To"] = 'reidsl@icloud.com'
-    message["From"] = 'reidsl0716@gmail.com'
+    message["To"] = config('recipient')
+    message["From"] = config('gmail_user')
     message["Subject"] = f'{task} - {status}'
 
-    messageText = MIMEText(f'''{task} was {status} at {date}.''','html')
+    messageText = MIMEText(f'''{task} was a {status} at {date}.''','html')
     message.attach(messageText)
 
     email = config('gmail_user')
