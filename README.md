@@ -50,7 +50,7 @@ To run this project, you will need to add a .env file to the same directory as `
 
 `gmail_user` => gmail email
 
-`gmail_app_password` => gmail app password (Note: This is not your gmail password. See [here](https://support.google.com/accounts/answer/185833?hl=en) to configure)
+`gmail_password` => gmail app password (Note: This is not your gmail password. See [here](https://support.google.com/accounts/answer/185833?hl=en) to configure)
 
 `recipient` => recipient's email. (Note: For multiple recipients, input a list of strings)
 
