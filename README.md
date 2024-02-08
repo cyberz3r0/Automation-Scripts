@@ -37,7 +37,7 @@ Start the server
 
 ## Environment Variables
 
-To run this project, you will need to add a .env file to `clockin-out-main` and the following environment variables to it: 
+To run this project, you will need to add a .env file to the same directory as `main.py` and the following environment variables to it: 
 
 
 `work_user` => CTU email
@@ -47,6 +47,12 @@ To run this project, you will need to add a .env file to `clockin-out-main` and 
 `discord_user` => Discord username
 
 `discord_pw` => Discord Password
+
+`gmail_user` => gmail email
+
+`gmail_app_password` => gmail app password (Note: This is not your gmail password. See [here](https://support.google.com/accounts/answer/185833?hl=en) to configure)
+
+`recipient` => recipient's email. (Note: For multiple recipients, input a list of strings)
 
 
 ## Current Limitations
