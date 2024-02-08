@@ -9,8 +9,8 @@ def timesheet():
     import pytz
     from helper import show_notification, send_email
 
-    PST = pytz.timezone("America/Los_Angeles")
-    date_time = datetime.now(PST)
+    local_timezone = pytz.timezone("America/Los_Angeles") #to change the time zone to use the tz_identifier https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    date_time = datetime.now(local_timezone)
     log_datetime = date_time.strftime("%m%d%Y-%H%M-%S")
     current_time = date_time.strftime("%H%M")
 
