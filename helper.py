@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from decouple import config
 from time import sleep
 
-def show_notification(title = "Task", message = None):
+def show_notification(title = "Task", message = None, date):
     from notifypy import Notify
     import platform
     import os
@@ -19,6 +19,7 @@ def show_notification(title = "Task", message = None):
         notification.audio = os.path.join(os.path.dirname(__file__), 'assets', 'burn_complete.wav')
     
     notification.send()
+    send_email(title, message, date)
         
 def check(driver, msg):
     action = ActionChains(driver)
@@ -43,3 +44,29 @@ def login(driver, element):
     else:
         driver.get('https://discord.com/login')
         login(driver, element)
+
+def send_email(task, status, date):
+    import smtplib
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from decouple import config
+    message = MIMEMultipart()
+    message["To"] = 'reidsl@icloud.com'
+    message["From"] = 'reidsl0716@gmail.com'
+    message["Subject"] = f'{task} - {status}'
+
+    messageText = MIMEText(f'''{task} was {status} at {date}.''','html')
+    message.attach(messageText)
+
+    email = config('gmail_user')
+    password = config('gmail_pw')
+
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.ehlo('Gmail')
+    server.starttls()
+    server.login(email,password)
+    fromAddr = config('gmail_user')
+    toAddrs  = 'reidsl@icloud.com'
+    server.sendmail(fromAddr,toAddrs,message.as_string())
+
+    server.quit()

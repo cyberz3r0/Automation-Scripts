@@ -13,7 +13,7 @@ def discord():
     date_time = datetime.now(PST)
     log_datetime = date_time.strftime("%m%d%Y-%H%M-%S")
     current_time = date_time.strftime("%H")
-
+    task_time_format = date_time.strftime("%H%M")
     try:
         op = webdriver.ChromeOptions()
         op.add_argument('--log-level=3')
@@ -33,9 +33,9 @@ def discord():
             driver.find_element(By.XPATH, '//li[@data-dnd-name= "ta-availability"]').click()
             check(driver, msg)
             # ====================================================================================
-            driver.find_element(By.XPATH, '//li[@data-dnd-name= "cohort-caden-december"]').click()
-            check(driver, msg)
-            show_notification("Discord","Success")
+            # driver.find_element(By.XPATH, '//li[@data-dnd-name= "cohort-caden-december"]').click()
+            # check(driver, msg)
+            show_notification("Discord","Success", task_time_format)
             driver.quit()
             
         elif int(current_time) == 15:
@@ -43,29 +43,29 @@ def discord():
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
             sleep(1)
             check(driver, msg)
-            show_notification("Discord","Success")
+            show_notification("Discord","Success", task_time_format)
             driver.quit()
         elif int(current_time) == 16:
             msg = "Back"
             driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
             sleep(1)
             check(driver, msg)
-            show_notification("Discord","Success")
+            show_notification("Discord","Success", task_time_format)
             driver.quit()
         else:
             msg = "Goodnight ninjas! If I helped you today, please leave some feedback for me! Feedback is anonymous and helps us as TAs improve your experiences in Coding Dojo. https://form.typeform.com/to/rX5h1pbL#ta_name=Samuel%20Reid"
         # ==============================================================================================================
-            driver.find_element(By.XPATH, '//li[@data-dnd-name= "cohort-caden-december"]').click()
-            check(driver, msg)
+            # driver.find_element(By.XPATH, '//li[@data-dnd-name= "cohort-caden-december"]').click()
+            # check(driver, msg)
             # ====================================================================================
             driver.find_element(By.XPATH, '//li[@data-dnd-name= "ta-availability"]').click()
             check(driver, msg)
-            show_notification("Discord","Success")
+            show_notification("Discord","Success", task_time_format)
             driver.quit()
             
     except Exception as error_code:
         import os
-        show_notification("Discord","Failed")
+        show_notification("Discord","Failed", task_time_format)
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'discord-{log_datetime}.txt')
         driver.save_screenshot(f'logs/screenshots/discord-{log_datetime}.png')
         with open(log_directory, 'w') as file:

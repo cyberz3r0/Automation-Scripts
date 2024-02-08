@@ -7,7 +7,7 @@ def timesheet():
     from decouple import config
     from datetime import datetime
     import pytz
-    from helper import show_notification
+    from helper import show_notification, send_email
 
     PST = pytz.timezone("America/Los_Angeles")
     date_time = datetime.now(PST)
@@ -38,7 +38,7 @@ def timesheet():
             WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
-            show_notification("TimeSheet","Success")
+            show_notification("TimeSheet","Success", current_time)
             driver.quit()
         else:
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("2") # change to 1 for login
@@ -47,11 +47,11 @@ def timesheet():
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'CE_DERIVED_ETEO_YES')))
             driver.find_element(By.ID, 'CE_DERIVED_ETEO_YES').click()
             WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'ps-dropdown')))
-            show_notification("TimeSheet","Success")
+            show_notification("TimeSheet","Success", current_time)
             driver.quit()
     except Exception as error_code:
         import os
-        show_notification("TimeSheet","Failed")
+        show_notification("TimeSheet","Failed", current_time)
         driver.save_screenshot(f'logs/screenshots/timesheet-{log_datetime}.png')
         log_directory= os.path.join(os.path.dirname(__file__), 'logs', f'timesheet-{log_datetime}.txt')
         with open(log_directory, 'w') as file:
