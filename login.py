@@ -8,7 +8,8 @@ def timesheet():
     from datetime import datetime
     import pytz
     from helper import show_notification, send_email
-
+    from time import sleep
+    
     local_timezone = pytz.timezone("America/Los_Angeles") #to change the time zone to use the tz_identifier https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     date_time = datetime.now(local_timezone)
     log_datetime = date_time.strftime("%m%d%Y-%H%M-%S")
@@ -33,15 +34,17 @@ def timesheet():
         WebDriverWait(driver, 40).until(EC.element_to_be_clickable((By.ID, 'win0divPTNUI_LAND_REC_GROUPLET$0')))
         driver.find_element(By.ID, 'win0divPTNUI_LAND_REC_GROUPLET$0').click()
         WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, 'ps-dropdown')))
-        if int(current_time) <= 1100 or int(current_time) == 1600:
+        if int(current_time) <= 1100 or int(current_time) == 1600: # Login for start of day and lunch in
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("1")
+            driver.implicitly_wait(4)
             WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             show_notification("TimeSheet","Success", current_time)
             driver.quit()
-        else:
+        else:# Lunch Out and End of Day
             Select(driver.find_element(By.ID, 'TL_RPTD_TIME_PUNCH_TYPE$0')).select_by_value("2") # change to 1 for login
+            driver.implicitly_wait(4)
             WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB')))
             driver.find_element(By.ID, 'TL_WEB_CLOCK_WK_TL_SAVE_PB').click()
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'CE_DERIVED_ETEO_YES')))

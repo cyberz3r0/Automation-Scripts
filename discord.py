@@ -40,14 +40,14 @@ def discord():
             
         elif int(current_time) == 15:
             msg = "Lunch"
-            driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
+            driver.find_element(By.XPATH, "//div[contains(text(),'🔒pt-ta-chat')]").click()
             sleep(1)
             check(driver, msg)
             show_notification("Discord","Success", task_time_format)
             driver.quit()
         elif int(current_time) == 16:
             msg = "Back"
-            driver.find_element(By.XPATH, '//li[@data-dnd-name ="🔒pt-ta-chat"]').click()
+            driver.find_element(By.XPATH, "//div[contains(text(),'🔒pt-ta-chat')]").click()
             sleep(1)
             check(driver, msg)
             show_notification("Discord","Success", task_time_format)
