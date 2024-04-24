@@ -9,6 +9,7 @@ Selenium(WebDriver), Python, HTML knowledge
 
 
 ## Run Locally
+Note: If you're Windows 11 Pro x64 please install using Python 3.11 as Notify-Py has a known issue with Python 3.12.[Issue](https://github.com/ms7m/notify-py/pull/55)
 
 Clone the project
 
